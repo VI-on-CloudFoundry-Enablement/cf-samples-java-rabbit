@@ -5,10 +5,10 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class ServiceStarter extends SpringBootServletInitializer {
+public class Booter extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
-        new SpringApplicationBuilder(ServiceStarter.class).run(args);
+        new SpringApplicationBuilder(Booter.class).run(args);
     }
 
 }

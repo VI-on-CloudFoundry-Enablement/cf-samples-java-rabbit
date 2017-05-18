@@ -3,13 +3,12 @@ package com.sap.vean.cf.samples;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.transform.Result;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +19,7 @@ import com.sap.vean.cf.samples.model.RabbitMessage;
 import com.sap.vean.cf.samples.model.ResultData;
 
 @Controller
+@EnableAutoConfiguration
 @RequestMapping("/sbrc")
 public class SpringBasedRabbitConsumer {
 

@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +19,7 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.sap.vean.cf.samples.model.ResultData;
 
 @Controller
+@EnableAutoConfiguration
 @RequestMapping("/dsrc")
 public class DirectRabbitServiceConsumer {
 
@@ -34,31 +36,33 @@ public class DirectRabbitServiceConsumer {
 		
 		try {
 			
+			//Get enviromental variables 
 			JSONObject env = new JSONObject(System.getenv("VCAP_SERVICES"));
-			JSONArray rmqInstances = env.getJSONArray("rabbitmq");
-	
+			JSONArray rmqInstances = env.getJSONArray("rabbitmq");	
 			JSONObject rmq = rmqInstances.getJSONObject(0);
 			JSONObject rmqCredentials = rmq.getJSONObject("credentials");
 	
+			//Create connection to rabbit
 			ConnectionFactory factory = new ConnectionFactory();
 			factory.setUsername(rmqCredentials.getString("username"));
 			factory.setPassword(rmqCredentials.getString("password"));
 			factory.setHost(rmqCredentials.getString("hostname"));
-			factory.setPort(new Integer(rmqCredentials.getString("port")));
-			//	factory.setVirtualHost(virtualHost);
-						
+			factory.setPort(new Integer(rmqCredentials.getString("port")));	
 			Connection conn = factory.newConnection();
 	
-			
+			//Create channel
 			Channel chl = conn.createChannel();			
 			chl.queueDeclare(QUEUE_NAME, true, false, false, null);			
 			
+			//Create and Publish Message
 			byte[] messageBodyBytes = ("Hello, world!" + System.currentTimeMillis()).getBytes("UTF-8");
 			chl.basicPublish("", QUEUE_NAME, null, messageBodyBytes);
 			log.info("Message sent: " + messageBodyBytes);
 			
+			//Get Message
 			String message = new String(chl.basicGet(QUEUE_NAME, false).getBody(), "UTF-8");
 			
+			//Create Return Message
 			rs.setMessage("Cloud Foundry Rabbit Example: Message Received: " + message);
 			rs.setSuccess(true);
 	
