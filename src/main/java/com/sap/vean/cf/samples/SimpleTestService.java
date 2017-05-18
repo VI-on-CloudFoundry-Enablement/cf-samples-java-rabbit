@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sap.vean.cf.samples.model.ResultData;
 
 @Controller
-@RequestMapping("/")
-public class ServiceController {
+@RequestMapping("/test")
+public class SimpleTestService {
 
-    private static final Logger log = LoggerFactory.getLogger(ServiceController.class);
+    private static final Logger log = LoggerFactory.getLogger(SimpleTestService.class);
 
    
     @RequestMapping(method = RequestMethod.GET)

@@ -1,8 +1,9 @@
 ---
 applications:
-- name: cf-samples-java-spring-service
-  host: d043918trial-cf-samples-java-spring-service
-  path: target/cf-samples-java-spring-service.war
+- name: cf-samples-java-rabbit
+  host: d043918trial-cf-samples-java-rabbit
+  path: target/cf-samples-java-rabbit.war
   memory: 256M
   instances: 1
-  
+  services:
+     - rabbit
