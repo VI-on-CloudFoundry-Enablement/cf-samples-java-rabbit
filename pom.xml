@@ -53,7 +53,7 @@
   </dependencies>
   	
   <build>
-    <finalName>cf-samples-java-rabbit</finalName>
+    <finalName>${project.artifactId}</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.tomcat.maven</groupId>
